@@ -1,0 +1,47 @@
+{
+  "purchase_orders": [
+    {
+      "po_number": "PO-1001",
+      "vendor": "Crestline Office Supplies",
+      "po_amount": 45000,
+      "remaining_balance": 45000,
+      "date_issued": "2026-09-15"
+    },
+    {
+      "po_number": "PO-1002",
+      "vendor": "Apex Cloud Services",
+      "po_amount": 250000,
+      "remaining_balance": 250000,
+      "date_issued": "2026-10-01"
+    },
+    {
+      "po_number": "PO-1003",
+      "vendor": "Nimbus Logistics",
+      "po_amount": 120000,
+      "remaining_balance": 70000,
+      "date_issued": "2026-09-20",
+      "note": "Partially billed: INV-NL-201 already drew down Rs.50,000 against this PO"
+    },
+    {
+      "po_number": "PO-1004",
+      "vendor": "Crestline Office Supplies",
+      "po_amount": 80000,
+      "remaining_balance": 80000,
+      "date_issued": "2026-10-05"
+    },
+    {
+      "po_number": "PO-1005",
+      "vendor": "Quantum Facilities Mgmt",
+      "po_amount": 60000,
+      "remaining_balance": 60000,
+      "date_issued": "2026-10-10"
+    },
+    {
+      "po_number": "PO-1006",
+      "vendor": "Apex Cloud Services",
+      "po_amount": 100000,
+      "remaining_balance": 100000,
+      "date_issued": "2026-09-01"
+    }
+  ]
+}

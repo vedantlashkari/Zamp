@@ -1,0 +1,26 @@
+{
+  "processed_invoices": [
+    {
+      "invoice_number": "INV-5050",
+      "vendor": "Apex Cloud Services",
+      "invoice_date": "2026-10-20",
+      "total_amount": 100000,
+      "po_number": "PO-1006",
+      "decision": "Approve",
+      "confidence": 98,
+      "reasons": ["All checks passed", "Matched directly to PO-1006", "Within tolerance"],
+      "processed_at": "2026-10-20T11:15:00"
+    },
+    {
+      "invoice_number": "INV-NL-201",
+      "vendor": "Nimbus Logistics",
+      "invoice_date": "2026-10-02",
+      "total_amount": 50000,
+      "po_number": "PO-1003",
+      "decision": "Approve",
+      "confidence": 96,
+      "reasons": ["All checks passed", "Partial draw against PO-1003 (1 of 2)", "Within tolerance"],
+      "processed_at": "2026-10-02T09:40:00"
+    }
+  ]
+}
