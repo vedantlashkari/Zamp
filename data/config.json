@@ -1,0 +1,9 @@
+{
+  "tolerance_pass_pct": 2.0,
+  "tolerance_flag_upper_pct": 10.0,
+  "ocr_confidence_flag_threshold": 70,
+  "custom_fields": [
+    {"name": "shipping_address", "label": "Shipping Address", "pattern": "Ship To:\\s*(.+)", "required": false},
+    {"name": "currency", "label": "Currency", "pattern": "Currency:\\s*([A-Z]{3})", "required": false}
+  ]
+}

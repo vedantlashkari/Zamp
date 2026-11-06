@@ -13,7 +13,7 @@ import pytesseract
 from PIL import Image
 
 
-def _parse_fields_from_text(text: str) -> dict:
+def _parse_fields_from_text(text: str, custom_fields: list = None) -> dict:
     lines = [l.strip() for l in text.splitlines() if l.strip()]
     vendor = None
     for l in lines:
@@ -41,7 +41,7 @@ def _parse_fields_from_text(text: str) -> dict:
         except ValueError:
             return None
 
-    return {
+    fields = {
         "vendor": vendor,
         "invoice_number": invoice_number,
         "invoice_date": invoice_date,
@@ -50,11 +50,21 @@ def _parse_fields_from_text(text: str) -> dict:
         "total_amount": to_num(total_raw),
     }
 
+    # User-configurable extra fields (Settings page) — each is {name, label, pattern, required}
+    for cf in (custom_fields or []):
+        try:
+            fields[cf["name"]] = find(cf["pattern"])
+        except re.error:
+            fields[cf["name"]] = None
 
-def extract_invoice(pdf_path: str) -> dict:
+    return fields
+
+
+def extract_invoice(pdf_path: str, custom_fields: list = None) -> dict:
     """
     Returns a dict:
       vendor, invoice_number, invoice_date, po_number, tax_amount, total_amount,
+      plus any configured custom fields,
       extraction_method ('text' | 'ocr'),
       extraction_confidence (0-100),
       raw_text (for audit trail)
@@ -64,7 +74,7 @@ def extract_invoice(pdf_path: str) -> dict:
         text = page.extract_text() or ""
 
     if text.strip():
-        fields = _parse_fields_from_text(text)
+        fields = _parse_fields_from_text(text, custom_fields)
         fields["extraction_method"] = "text"
         fields["extraction_confidence"] = 100
         fields["raw_text"] = text
@@ -91,8 +101,15 @@ def extract_invoice(pdf_path: str) -> dict:
     ocr_text = pytesseract.image_to_string(pil_image)
     avg_confidence = round(sum(confidences) / len(confidences), 1) if confidences else 0.0
 
-    fields = _parse_fields_from_text(ocr_text)
+    fields = _parse_fields_from_text(ocr_text, custom_fields)
     fields["extraction_method"] = "ocr"
     fields["extraction_confidence"] = avg_confidence
     fields["raw_text"] = ocr_text
     return fields
+
+
+def render_invoice_page_image(pdf_path: str, resolution: int = 150):
+    """Returns a PIL image of the invoice's first page, for the on-screen viewer."""
+    with pdfplumber.open(pdf_path) as pdf:
+        page = pdf.pages[0]
+        return page.to_image(resolution=resolution).original

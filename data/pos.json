@@ -42,6 +42,13 @@
       "po_amount": 100000,
       "remaining_balance": 100000,
       "date_issued": "2026-09-01"
+    },
+    {
+      "po_number": "PO-1007",
+      "vendor": "Crestline Office Supplies",
+      "po_amount": 79000,
+      "remaining_balance": 79000,
+      "date_issued": "2026-10-12"
     }
   ]
 }
